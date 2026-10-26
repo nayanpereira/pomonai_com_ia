@@ -1,0 +1,66 @@
+# Segredos: senhas e chaves de API nunca devem ir para o GitHub
+secrets.properties
+**/secrets.properties
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dados de banco: o MySQL e o ChromaDB guardam seus dados fora do projeto,
+# mas estes padrões evitam que dumps e pastas de dados sejam enviados por engano
+*.sqlite
+*.sqlite3
+*.db
+*.mv.db
+*.trace.db
+*.dump
+*.bak
+mysql-data/
+chroma-data/
+chroma_data/
+chroma/
+data/
+
+# Maven / Java
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.log
+hs_err_pid*
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.apt_generated/
+.factorypath
+.springBeans
+.sts4-cache/
+nbproject/
+*.code-workspace
+
+# Node / Expo (aplicativo)
+node_modules/
+.expo/
+.expo-shared/
+dist/
+web-build/
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.tsbuildinfo
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1 @@
+alter table duvida add column resposta_professor text;

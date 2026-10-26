@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomonai - Dashboard Central</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0d4c; color: #fff; padding: 24px; }
+        header { text-align: center; margin-bottom: 32px; }
+        header h1 { font-size: 2.2rem; margin-bottom: 8px; color: #4da3ff; }
+        header p { color: #9fc4ff; font-size: 1rem; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #141a6b;
+            border: 2px solid #4da3ff;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .card h3 { color: #9fc4ff; font-size: 1.1rem; margin-bottom: 12px; border-bottom: 1px solid #232d9c; padding-bottom: 8px; }
+        .card .metric-number { font-size: 2.5rem; font-weight: bold; color: #ffffff; margin: 10px 0; }
+        .card a { color: #4da3ff; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px; }
+        .card a:hover { text-decoration: underline; }
+
+        .recent-list { list-style: none; margin-top: 10px; }
+        .recent-item { padding: 8px 0; border-bottom: 1px solid #1e268a; font-size: 0.9rem; }
+        .recent-item:last-child { border-bottom: none; }
+
+        footer { text-align: center; margin-top: 40px; color: #9fc4ff; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⚡ Pomonai - Dashboard Central</h1>
+        <p>Acompanhamento em tempo real do ecossistema de estudos e dúvidas</p>
+    </header>
+
+    <div class="dashboard-grid">
+        
+        <!-- Card 1: Métrica de Dúvidas -->
+        <div class="card">
+            <h3>📌 Total de Dúvidas</h3>
+            <div class="metric-number" th:text="${totalDuvidas}">0</div>
+            <p>Dúvidas enviadas pelos alunos durante as sessões.</p>
+            <a href="/faq">Ver FAQ Completo →</a>
+        </div>
+
+        <!-- Card 2: Últimas Dúvidas Recebidas -->
+        <div class="card">
+            <h3>💬 Últimas Perguntas</h3>
+            <ul class="recent-list">
+                <li class="recent-item" th:each="d, iterStat : ${ultimasDuvidas}" th:if="${iterStat.index < 3}">
+                    <strong th:text="${d.texto}">Texto da dúvida</strong><br>
+                    <small style="color: #9fc4ff;" th:text="${#temporals.format(d.dataHora, 'dd/MM/yyyy HH:mm')}">Data</small>
+                </li>
+            </ul>
+            <p th:if="${#lists.isEmpty(ultimasDuvidas)}">Nenhuma dúvida registrada ainda.</p>
+        </div>
+
+        <!-- Card 3: Espaço reservado para o próximo módulo (ex: Pomodoro / Métricas de Aula) -->
+        <div class="card">
+            <h3>🚀 Próximos Módulos</h3>
+            <p>Este painel será expandido a cada aula com novos widgets, gráficos e relatórios estatísticos.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>SENAI Taguatinga • Pomonai Project</p>
+    </footer>
+
+</body>
+</html>

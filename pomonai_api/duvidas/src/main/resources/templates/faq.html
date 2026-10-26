@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAQ - Frequently Asked Questions - Java FullStack</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0a0d4c; color: #fff; padding: 24px; }
+        h1 { text-align: center; }
+        .faq { max-width: 720px; margin: 0 auto; }
+        details { background: #141a6b; border: 2px solid #4da3ff; border-radius: 12px; margin-bottom: 12px; padding: 14px 18px; }
+        summary { cursor: pointer; font-weight: bold; }
+        .info { margin: 10px 0 0; color: #9fc4ff; font-size: 14px; }
+        .resp { margin: 12px 0 0; padding: 12px; background: #0a0d4c; border-left: 4px solid #00b4d8; border-radius: 4px; color: #cfe6ff; }
+        .resp strong { color: #00b4d8; display: block; margin-bottom: 4px; }
+        .resp .texto { display: block; white-space: pre-line; }
+        .resp.prof { border-left-color: #ffb703; }
+        .resp.prof strong { color: #ffb703; }
+        .form-prof { margin-top: 14px; }
+        .form-prof label { display: block; font-size: 13px; color: #9fc4ff; margin-bottom: 6px; }
+        .form-prof textarea { width: 100%; min-height: 70px; box-sizing: border-box; background: #0a0d4c; color: #fff; border: 1.5px solid #4da3ff; border-radius: 8px; padding: 10px; font-family: inherit; font-size: 14px; }
+        .form-prof button { margin-top: 8px; background: #ffb703; color: #0a0d4c; border: none; border-radius: 8px; padding: 10px 16px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>FAQ Java FullStack</h1>
+
+    <div class="faq">
+        <details th:each="d : ${duvidas}">
+            <summary th:text="${d.texto}">Texto da dúvida</summary>
+            <p class="info">
+                Enviada em
+                <span th:if="${d.dataHora != null}" th:text="${#temporals.format(d.dataHora, 'dd/MM/yyyy HH:mm')}">17/10/2026 09:00</span>
+                <span th:if="${d.dataHora == null}">Data não informada</span>
+                • Pausa: <span th:text="${d.tipoPausa}">CURTA</span>
+            </p>
+
+            <div class="resp">
+                <strong>Resposta da IA:</strong>
+                <span class="texto" th:if="${d.respostaIa != null}" th:text="${d.respostaIa}">Resposta detalhada da IA</span>
+                <span class="texto" th:if="${d.respostaIa == null}">A IA não conseguiu responder esta dúvida.</span>
+            </div>
+
+            <div class="resp prof">
+                <strong>Resposta do professor:</strong>
+                <span class="texto" th:if="${d.respostaProfessor != null}" th:text="${d.respostaProfessor}">Resposta do professor</span>
+                <span class="texto" th:if="${d.respostaProfessor == null}">O professor responderá em breve.</span>
+            </div>
+
+            <form class="form-prof" method="post" th:action="@{/faq/{id}/resposta(id=${d.id})}">
+                <label>Professor, acrescente ou edite sua resposta:</label>
+                <textarea name="resposta" th:text="${d.respostaProfessor}" required></textarea>
+                <button type="submit">Salvar resposta</button>
+            </form>
+        </details>
+        <p th:if="${#lists.isEmpty(duvidas)}">Nenhuma dúvida cadastrada ainda.</p>
+    </div>
+</body>
+</html>
