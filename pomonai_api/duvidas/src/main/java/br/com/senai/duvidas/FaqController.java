@@ -33,4 +33,11 @@ public class FaqController {
         });
         return "redirect:/faq";
     }
+
+    // Exclui a dúvida do banco de dados
+    @PostMapping("/faq/excluir")
+    public String excluir(@RequestParam("id") Long id) {
+        repository.deleteById(id);
+        return "redirect:/faq";
+    }
 }

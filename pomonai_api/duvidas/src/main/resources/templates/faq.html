@@ -20,6 +20,9 @@
         .form-prof label { display: block; font-size: 13px; color: #9fc4ff; margin-bottom: 6px; }
         .form-prof textarea { width: 100%; min-height: 70px; box-sizing: border-box; background: #0a0d4c; color: #fff; border: 1.5px solid #4da3ff; border-radius: 8px; padding: 10px; font-family: inherit; font-size: 14px; }
         .form-prof button { margin-top: 8px; background: #ffb703; color: #0a0d4c; border: none; border-radius: 8px; padding: 10px 16px; font-weight: bold; cursor: pointer; }
+        .form-excluir { margin-top: 12px; padding-top: 12px; border-top: 1px solid #232d9c; }
+        .btn-danger { background: #e53e3e; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn-danger:hover { background: #c53030; }
     </style>
 </head>
 <body>
@@ -51,6 +54,12 @@
                 <label>Professor, acrescente ou edite sua resposta:</label>
                 <textarea name="resposta" th:text="${d.respostaProfessor}" required></textarea>
                 <button type="submit">Salvar resposta</button>
+            </form>
+
+            <form class="form-excluir" method="post" th:action="@{/faq/excluir}"
+                  onsubmit="return confirm('Excluir esta dúvida? Essa ação não pode ser desfeita.');">
+                <input type="hidden" name="id" th:value="${d.id}">
+                <button type="submit" class="btn-danger">🗑️ Excluir dúvida</button>
             </form>
         </details>
         <p th:if="${#lists.isEmpty(duvidas)}">Nenhuma dúvida cadastrada ainda.</p>
