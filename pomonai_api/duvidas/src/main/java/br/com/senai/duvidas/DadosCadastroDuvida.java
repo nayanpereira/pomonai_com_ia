@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Pattern;
 
 public record DadosCadastroDuvida(
     @NotBlank String texto,
-    @NotBlank @Pattern(regexp = "NENHUMA|CURTA|LONGA") String tipoPausa) {
- 
+    @NotBlank @Pattern(regexp = "NENHUMA|CURTA|LONGA") String tipoPausa,
+    Long categoriaId) {
+
 }

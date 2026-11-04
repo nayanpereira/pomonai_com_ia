@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
 
@@ -27,6 +28,9 @@ public class DuvidaController {
     private DuvidaRepository repository;
 
     @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
     private AiService aiService;
 
     @GetMapping
@@ -37,6 +41,14 @@ public class DuvidaController {
     @PostMapping
     public ResponseEntity<Duvida> cadastrar(@RequestBody @Valid DadosCadastroDuvida dados) {
         Duvida novaDuvida = new Duvida(dados);
+
+        // Associa a categoria, se foi informada
+        if (dados.categoriaId() != null) {
+            Categoria categoria = categoriaRepository.findById(dados.categoriaId())
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.BAD_REQUEST, "Categoria não encontrada: " + dados.categoriaId()));
+            novaDuvida.setCategoria(categoria);
+        }
 
         try {
             // Aciona o RAG para gerar a resposta com base nos documentos

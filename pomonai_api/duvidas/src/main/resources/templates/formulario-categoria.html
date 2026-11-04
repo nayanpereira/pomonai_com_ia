@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Nova Categoria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0d4c;
+            color: #fff;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: #141a6b;
+            border: 2px solid #4da3ff;
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #9fc4ff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #4da3ff;
+            background: #0a0d4c;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .btn-submit {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #1d4ed8;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #9fc4ff;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Nova Categoria</h2>
+        
+        <!-- Formulário que envia o texto via POST para o Controller -->
+        <form th:action="@{/categorias/salvar}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome da Categoria:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Ex: Programação, Banco de Dados...">
+            </div>
+            
+            <button type="submit" class="btn-submit">Salvar Categoria</button>
+        </form>
+
+        <a href="/faq" class="back-link">⬅ Voltar para a FAQ</a>
+    </div>
+</body>
+
+</html>

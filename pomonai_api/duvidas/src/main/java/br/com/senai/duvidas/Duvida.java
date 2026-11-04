@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 // Classe de Entidade (representa uma tabela)
@@ -33,6 +35,11 @@ public class Duvida {
 
     @Column(name = "resposta_professor", columnDefinition = "TEXT")
     private String respostaProfessor;
+
+    // Categoria é opcional: uma dúvida pode não ter categoria
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Duvida() {
     }
@@ -60,4 +67,7 @@ public class Duvida {
 
     public String getRespostaProfessor() { return respostaProfessor; }
     public void setRespostaProfessor(String respostaProfessor) { this.respostaProfessor = respostaProfessor; }
+
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 }
